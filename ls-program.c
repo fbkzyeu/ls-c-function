@@ -54,7 +54,6 @@ int fileInfo(const char *dir)
         //retrieves information about a file in the buffer pointed by pathname, returns a struct with multiple information entries about a file/directory 
         stat(entries[i]->d_name, &file_info);
         
-        // Printing File/Directories Permissions
         // use of S_ISDIR() to check if it's a file or directory
         // use of flags from st_mode to check if bits are activated or not in USR/GRP/OTH permissions to RWX
         printf( (S_ISDIR(file_info.st_mode) ? "d": "-"));
