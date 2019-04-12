@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
 int fileInfo(const char *dir)
 {
+	//struct that will receive data from scanndir()
 	struct dirent **entries;
 	
     //scans the directory passed as argument, sorting using alphasort the values in d_name of dirent struct of files and saving it to entries
@@ -43,17 +44,18 @@ int fileInfo(const char *dir)
         perror("scandir");
     }
 
-    //entry formatting options
+    //display formatting header
     printf("%s  %-25s %-8s %-5s%-5s %-12s %-13s %-24s %-20s\n","Permissions", "Name", "Inode", "UID","GID", "Hard Links", "Size (B)", "Last Access", "Last Modification");
     
 	for (int i = 0; i < n_entries; i++) 
     {   
+	//struct to receive data from stat()
         struct stat file_info;
         //retrieves information about a file in the buffer pointed by pathname, returns a struct with multiple information entries about a file/directory 
         stat(entries[i]->d_name, &file_info);
         
         // Printing File/Directories Permissions
-        // use of S_ISDIR to check if it's a file or directory
+        // use of S_ISDIR() to check if it's a file or directory
         // use of flags from st_mode to check if bits are activated or not in USR/GRP/OTH permissions to RWX
         printf( (S_ISDIR(file_info.st_mode) ? "d": "-"));
         printf( (file_info.st_mode & S_IRUSR) ? "r" : "-");
