@@ -46,11 +46,11 @@ int fileInfo(const char *dir)
 
     //display formatting header
     printf("%s  %-25s %-8s %-5s%-5s %-12s %-13s %-24s %-20s\n","Permissions", "Name", "Inode", "UID","GID", "Hard Links", "Size (B)", "Last Access", "Last Modification");
-    
+    //struct to receive data from stat()
+        struct stat file_info;
+	
 	for (int i = 0; i < n_entries; i++) 
     {   
-	//struct to receive data from stat()
-        struct stat file_info;
         //retrieves information about a file in the buffer pointed by pathname, returns a struct with multiple information entries about a file/directory 
         stat(entries[i]->d_name, &file_info);
         
